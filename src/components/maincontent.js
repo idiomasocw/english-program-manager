@@ -245,7 +245,8 @@ const MainContent = () => {
                       {editMode && (
                         <FontAwesomeIcon
                           icon={faPenToSquare}
-                          style={{ marginLeft: "8px", cursor: "pointer" }}
+                          size="2xs"
+                          style={{ marginLeft: "8px", cursor: "pointer", color:'#4827ec' }}
                           onClick={handleTitleEdit}
                         />
                       )}
@@ -265,7 +266,7 @@ const MainContent = () => {
         {editMode && (
             <FontAwesomeIcon
                 icon={faPenToSquare}
-                style={{ marginLeft: "8px", cursor: "pointer" }}
+                style={{ marginLeft: "8px", cursor: "pointer", color:'#4827ec' }}
                 onClick={handleDescriptionEdit}
             />
         )}
@@ -282,7 +283,7 @@ const MainContent = () => {
                       {editMode && (
                         <FontAwesomeIcon
                           icon={faPenToSquare}
-                          style={{ marginLeft: "8px", cursor: "pointer" }}
+                          style={{ marginLeft: "8px", cursor: "pointer", color:'#4827ec' }}
                           onClick={handleTagEdit}
                         />
                       )}
