@@ -252,7 +252,7 @@ const MainContent = () => {
                     </>
                   )}
                 </h1>
-                <div>
+                <div className='quill-area'>
                 {editingDescription ? (
     editMode ? (
         <ReactQuill value={tempDescription} onChange={handleDescriptionChange} />
