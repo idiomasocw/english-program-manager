@@ -57,6 +57,14 @@ const Menu = ({ editMode, selectedLesson, setSelectedLesson, onDeleteLesson }) =
       querySnapshot.forEach((doc) => {
         lessonsData.push({ id: doc.id, ...doc.data() });
       });
+
+          // Sort lessons based on the numerical order
+    lessonsData.sort((a, b) => {
+      const lessonNumberA = parseInt(a.title.match(/\d+/)[0], 10);
+      const lessonNumberB = parseInt(b.title.match(/\d+/)[0], 10);
+      return lessonNumberA - lessonNumberB;
+    });
+    
       setLessons(lessonsData);
     });
 
