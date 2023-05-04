@@ -14,6 +14,7 @@ h2{
 }
 ul{padding-left:0px!important;}
 li{list-style: none;}
+
 /* styles for the menu section */
 .menu {
   display: flex;
@@ -25,22 +26,20 @@ li{list-style: none;}
   left: 0;
   bottom: 0;
   background-color: #1fffbc;
-  transition: width 0.3s ease;
   overflow: auto;
   padding: 0.5rem;
-  z-index: 2;
+  box-shadow: 5px 0px 10px rgba(14, 18, 77, 0.5);
+  z-index: 1;
 }
 .menu.collapsed {
   width: 4rem;
-  transition: width 0.3s ease;
+  z-index:0;
 }
 
 .lesson-details{
   margin-top:1.5rem;
 }
-.menu.collapsed ~ .main-content {
-  transition: margin-left 0.3s ease;
-}
+
 .menu.collapsed .lessons {
   display: none;
 }
@@ -51,7 +50,13 @@ li{list-style: none;}
   font-size: 24px;
   padding: 0.5rem;
   cursor: pointer;
+  transition: transform 0.3s ease;
 }
+
+.menu-hamburger:hover{
+  transform: scale(1.1);
+}
+
 .level {
   position: relative;
   text-align: center;
@@ -118,6 +123,9 @@ transform: scale(1.2);
     .search-icon{
       display: none;
     }
+    h1{
+      font-size: 1.5rem;
+    }
   }
  
   .add-lesson {
@@ -131,6 +139,7 @@ transform: scale(1.2);
     width: 100%;
     text-align: center;
     padding: 8px;
+    transition: background-color 0.3s ease, font-weight 0.3 ease;
    }
   .search-result:hover{
    cursor: pointer;
@@ -150,9 +159,11 @@ transform: scale(1.2);
     margin: 0 auto;
     cursor: pointer;
     border: none;
+    transition: transform 0.3s ease, background-color 0.3s ease;
   } 
   .level-button:hover{
     background-color: #4827ec;
+    transform: scale(1.1);
   }
   
 /* modal styles */
@@ -166,11 +177,20 @@ transform: scale(1.2);
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
+  max-width: 500px;
 }
 
 .form-container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  background-color: #fbffff; /* Add a background color */
+  padding: 1rem; /* Add some padding */
+  border-radius: 4px; /* Add border-radius for rounded corners */
+  width: 100%; /* Limit the width of the form */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  z-index: 1;
+  margin: auto;
 }
 
 .form-wrapper {
@@ -194,6 +214,9 @@ transform: scale(1.2);
   border-radius: 4px;
 }
 
+
+
+
 .form-container label {
   margin-top: 0.5rem;
   margin-bottom: 5px;
@@ -204,6 +227,8 @@ transform: scale(1.2);
 }
 .quill{
   background-color: white;
+  position: relative;
+  z-index: 0;
 }
 .loading-icon {
   display: flex;

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Menu from './components/menu';
 import MainContent from './components/maincontent';
 
 function App() {
@@ -7,7 +6,6 @@ function App() {
   return (
     <div className="App">
       <div className="app-body">
-        <Menu />
         <MainContent editMode={editMode} />
       </div>
     </div>
