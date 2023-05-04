@@ -202,7 +202,10 @@ const MainContent = () => {
 
     return (
         <div className="main-content">
-            <div className="search-and-add-container">
+            <nav className='navigation-bar'>            
+                
+                <div className='search-bar-container'>
+                <div className="search-bar-wrapper">                    
                 <input
                     className="search-bar"
                     type="text"
@@ -210,8 +213,10 @@ const MainContent = () => {
                     onChange={handleSearchInput}
                     placeholder="Search lessons"
                 />
-                <FontAwesomeIcon icon={faMagnifyingGlass} size="lg" style={{ color: '#0e124d' }} />
-            </div>
+                <FontAwesomeIcon icon={faMagnifyingGlass} size="sm" style={{ color: '#0e124d' }} /></div>
+
+                </div>
+            
             <div className="toggle-container">
                 {editMode && (
                     <FontAwesomeIcon
@@ -239,6 +244,9 @@ const MainContent = () => {
                     />
                 )}
             </div>
+            </nav>
+
+
             <Menu editMode={editMode}
                 selectedLesson={selectedLesson}
                 setSelectedLesson={setSelectedLesson}
