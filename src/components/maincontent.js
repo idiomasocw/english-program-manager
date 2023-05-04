@@ -10,9 +10,7 @@ import { db } from '../firebase-config';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Import the styles
 
-
 Modal.setAppElement('#root');
-
 const MainContent = () => {
     const [editMode, setEditMode] = useState(false);
     const [searchText, setSearchText] = useState('');
@@ -38,7 +36,6 @@ const MainContent = () => {
         return title.trim() !== "" && tag.trim() !== "" && hasTextContent(description);
     };
     
-
     /* delettion prop */
     const deleteLesson = async (lessonId) => {
         console.log('deleteLesson called');
@@ -54,11 +51,9 @@ const MainContent = () => {
         }
     };
 
-
     const [selectedLesson, setSelectedLesson] = useState(null);
     const [lessons, setLessons] = useState([]);
     const [filteredLessons, setFilteredLessons] = useState([]);
-
     const fetchLessons = async () => {
         const querySnapshot = await getDocs(collection(db, 'lesson'));
         const lessonsData = [];
@@ -67,16 +62,13 @@ const MainContent = () => {
         });
         setLessons(lessonsData);
     };
-
     useEffect(() => {
         setTempDescription(selectedLesson?.description || '');
     }, [selectedLesson]);
     
-
     useEffect(() => {
         fetchLessons();
     }, []);
-
     const handleSearchInput = (e) => {
         setSearchText(e.target.value);
         const searchValue = e.target.value.toLowerCase();
@@ -89,13 +81,11 @@ const MainContent = () => {
         });
         setFilteredLessons(filtered);
     };
-
     const handleLessonClick = (lesson) => {
         setSelectedLesson(lesson);
         setSearchText('');
         setFilteredLessons([]);
     };
-
     const toggleEditMode = () => {
         if (editMode && editingDescription) {
             saveDescription();
@@ -103,14 +93,12 @@ const MainContent = () => {
         setEditMode(!editMode);
     };
     
-
     const enabledButtonStyle = {
         backgroundColor: '#0e124d', // Change this to the desired dark blue color
         color: '#f8fbfb', // Change the text color to white or any desired color
         borderRadius: '5px',
         cursor: 'pointer',
       };
-
       const disabledButtonStyle = {
         backgroundColor: '#d1dbe3', // Change this to a gray color or any other color for the disabled state
         color: '#fafafa', // Change the text color to white or any desired color
@@ -119,15 +107,12 @@ const MainContent = () => {
       };
       
       
-
     const handleAddLesson = () => {
         setModalIsOpen(true);
     };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true); // Start loading
-
         // Add your Firebase code here to store the data
         try {
             const docRef = await addDoc(collection(db, 'lesson'), {
@@ -139,7 +124,6 @@ const MainContent = () => {
         } catch (e) {
             console.error('Error adding document: ', e);
         }
-
         setTitle('');
         setDescription('');
         setTag('');
@@ -147,35 +131,28 @@ const MainContent = () => {
         setModalIsOpen(false);
     };
     console.log('Selected lesson tag:', selectedLesson?.tag);
-
     // Add these handler functions inside MainContent component
     const handleTitleEdit = () => {
         setTempTitle(selectedLesson.title);
         setEditingTitle(true);
     };
-
     const handleDescriptionEdit = () => {
         setTempDescription(selectedLesson.description);
         setEditingDescription(true);
     };
-
     const handleTagEdit = () => {
         setTempTag(selectedLesson.tag);
         setEditingTag(true);
     };
-
     const handleTitleChange = (e) => {
         setTempTitle(e.target.value);
     };
-
     const handleDescriptionChange = (value) => {
         setTempDescription(value);
     };
-
     const handleTagChange = (e) => {
         setTempTag(e.target.value);
     };
-
     const saveTitle = async () => {
         await updateDoc(doc(db, 'lesson', selectedLesson.id), {
             title: tempTitle,
@@ -183,7 +160,6 @@ const MainContent = () => {
         setSelectedLesson({ ...selectedLesson, title: tempTitle });
         setEditingTitle(false);
     };
-
     const saveDescription = async () => {
         await updateDoc(doc(db, 'lesson', selectedLesson.id), {
             description: tempDescription,
@@ -191,7 +167,6 @@ const MainContent = () => {
         setSelectedLesson({ ...selectedLesson, description: tempDescription });
         setEditingDescription(false);
     };
-
     const saveTag = async () => {
         await updateDoc(doc(db, 'lesson', selectedLesson.id), {
             tag: tempTag,
@@ -199,23 +174,8 @@ const MainContent = () => {
         setSelectedLesson({ ...selectedLesson, tag: tempTag });
         setEditingTag(false);
     };
-
     return (
         <div className="main-content">
-            <nav className='navigation-bar'>            
-                
-                <div className='search-bar-container'>
-                <div className="search-bar-wrapper">                    
-                <input
-                    className="search-bar"
-                    type="text"
-                    value={searchText}
-                    onChange={handleSearchInput}
-                    placeholder="Search lessons"
-                />
-                <FontAwesomeIcon icon={faMagnifyingGlass} size="sm" style={{ color: '#0e124d' }} /></div>
-
-                </div>
             
             <div className="toggle-container">
                 {editMode && (
@@ -244,9 +204,20 @@ const MainContent = () => {
                     />
                 )}
             </div>
+            <nav className='navigation-bar'>            
+                
+                <div className='search-bar-container'>
+                <div className="search-bar-wrapper">                    
+                <input
+                    className="search-bar"
+                    type="text"
+                    value={searchText}
+                    onChange={handleSearchInput}
+                    placeholder="Search lessons"
+                />
+                <FontAwesomeIcon className='search-icon' icon={faMagnifyingGlass} size="sm" style={{ color: '#0e124d' }} /></div>
+                </div>
             </nav>
-
-
             <Menu editMode={editMode}
                 selectedLesson={selectedLesson}
                 setSelectedLesson={setSelectedLesson}
@@ -281,7 +252,7 @@ const MainContent = () => {
                     </>
                   )}
                 </h1>
-                <p>
+                <div>
                 {editingDescription ? (
     editMode ? (
         <ReactQuill value={tempDescription} onChange={handleDescriptionChange} />
@@ -300,8 +271,7 @@ const MainContent = () => {
         )}
     </>
 )}
-
-                </p>
+                </div>
                 <p>
                   Level:
                   {editingTag ? (
@@ -322,7 +292,6 @@ const MainContent = () => {
               </div>
                 
             ) : null}
-
             <Modal isOpen={modalIsOpen} onRequestClose={() => setModalIsOpen(false)}
             style={{
                 overlay:{backgroundColor:'rgba(0, 0, 0, 0.5)',
@@ -334,7 +303,7 @@ const MainContent = () => {
               },   
             }}>
             <div className="form-wrapper">
-            <div className="header">
+            <div className="form-header">
                 <h2>Add Lesson</h2>
                 <FontAwesomeIcon
                 icon={faRectangleXmark}
@@ -384,12 +353,10 @@ const MainContent = () => {
   disabled={!isFormValid()}>
   Submit
 </button>
-
                 </form>
                 </div>
             </Modal>
         </div>
     );
 };
-
 export default MainContent;

@@ -1,27 +1,24 @@
 /* General styles */
 h1{
   color:#0e124d;
+  font-size: 2rem;
 }
-
 p{
   color:#0e124d;
 }
-
 h2{
   color:#0e124d;
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 700;
+  
 }
-
 ul{padding-left:0px!important;}
 li{list-style: none;}
-
 /* styles for the menu section */
 .menu {
   display: flex;
   flex-direction: column;
-  flex-basis: 250px;
-  flex-grow: 0;
+  width: 12rem;
   align-items: center;
   position: fixed;
   top: 0;
@@ -31,44 +28,40 @@ li{list-style: none;}
   transition: width 0.3s ease;
   overflow: auto;
   padding: 0.5rem;
+  z-index: 2;
 }
-
 .menu.collapsed {
-  flex-basis: 80px;
-  transition: flex-basis 0.3s ease;
+  width: 4rem;
+  transition: width 0.3s ease;
 }
 
+.lesson-details{
+  margin-top:1.5rem;
+}
 .menu.collapsed ~ .main-content {
   transition: margin-left 0.3s ease;
 }
-
 .menu.collapsed .lessons {
   display: none;
 }
-
 .hidden {
   display: none;
 }
-
 .menu-hamburger {
   font-size: 24px;
   padding: 0.5rem;
   cursor: pointer;
 }
-
 .level {
   position: relative;
   text-align: center;
   padding: 10px 0;
 }
-
 li.lesson:hover{background-color: #fff;border-radius: 5px;}
-
 .delete-lesson {
   margin-left:0.5rem;
   cursor: pointer;
 }
-
 .delete-lesson:hover {
 transform: scale(1.2);
 }
@@ -76,7 +69,7 @@ transform: scale(1.2);
  /* styles for the main content section */
  .main-content {
   flex: 1;
-  padding: 1rem;
+  padding: 0 1rem;
   overflow-y: auto;
   transition: margin-left 0.3s ease;
   margin-left: 4.5rem;
@@ -87,38 +80,42 @@ transform: scale(1.2);
     justify-content:space-evenly;
     
   }
-
   .search-bar-container {
     flex-grow: 1;
+    flex-shrink: 0;
     display: flex;
     justify-content: center;
   }
-
   .search-bar {
-    margin: 8px;
+    margin: 0.5rem;
+    width:14rem;
   }
-  
     .toggle-container{
       display: flex;
-      justify-content: center;
+      justify-content:flex-end;
       align-items: center;
      }
   
   .fa-toggle-off{
     cursor: pointer;
+    padding:5px 0;
   }
-
   .fa-toggle-on{
     cursor: pointer;
+    padding:5px 0;
   }
-
   #edit-tag{
     margin-right: 3px;
     font-size:0.5rem;
   }
-
   @media screen and (max-width: 767px) {
     #edit-tag {
+      display: none;
+    }
+    .search-bar {
+      width: 9.5rem;
+    }
+    .search-icon{
       display: none;
     }
   }
@@ -140,7 +137,6 @@ transform: scale(1.2);
    background-color:#edf7ff;
    font-weight: 600;
   }
-
   .level-button {
     background-color: #0e124d;
     border-radius: 50%;
@@ -155,13 +151,11 @@ transform: scale(1.2);
     cursor: pointer;
     border: none;
   } 
-
   .level-button:hover{
     background-color: #4827ec;
   }
   
 /* modal styles */
-
 .modal {
   display: flex;
   justify-content: center;
@@ -174,26 +168,25 @@ transform: scale(1.2);
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-.form-wrapper {
+.form-container {
   display: flex;
   flex-direction: column;
 }
 
-.header {
+.form-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.form-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-
-.form-group {
-  margin-bottom: 1rem;
 }
 
 .form-label {
   display: block;
   margin-bottom: 0.5rem;
 }
-
 .form-input {
   width: 100%;
   padding: 0.5rem;
@@ -201,52 +194,38 @@ transform: scale(1.2);
   border-radius: 4px;
 }
 
-.form-container {
-  display: flex;
-  flex-direction: column;
-}
-
 .form-container label {
-  margin-top: 10px;
+  margin-top: 0.5rem;
   margin-bottom: 5px;
 }
-
 .form-container input[type='text'],
 .form-container textarea {
-  margin-bottom: 10px;
+  margin-bottom: 0.5rem;
 }
-
 .quill{
   background-color: white;
 }
-
 .loading-icon {
   display: flex;
   justify-content: center;
   align-items: center;
   /* Add any other styles as needed */
 }
-
 /* more form styles */
 .formTitle{
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 700;
 }
-
 .formDescription{
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 700;
 }
-
 .formLevel{
   font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-weight: 700;
 }
-
 .app-body {
   display: flex;
   height: 100%;
   overflow: hidden;
 }
-
-
