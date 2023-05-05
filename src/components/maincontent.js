@@ -281,7 +281,18 @@ const MainContent = () => {
                 <p>
                   Level: 
                   {editingTag ? (
-                    <input value={tempTag} onChange={handleTagChange} onBlur={saveTag} placeholder='A1, A2, B1, B2, or C1' />
+                    <select 
+                    value={tempTag} 
+                    onChange={handleTagChange} 
+                    onBlur={saveTag} 
+                     >
+                     <option value="">Select a level</option>
+                     <option value="A1">A1</option>
+                     <option value="A2">A2</option>
+                     <option value="B1">B1</option>
+                     <option value="B2">B2</option>
+                     <option value="C1">C1</option>
+                     </select>
                   ) : (
                     <>
                       {selectedLesson.tag}
