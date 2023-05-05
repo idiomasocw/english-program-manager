@@ -19,7 +19,7 @@ li{list-style: none;}
 .menu {
   display: flex;
   flex-direction: column;
-  width: 12rem;
+  width: 12.5rem;
   align-items: center;
   position: fixed;
   top: 0;

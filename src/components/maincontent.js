@@ -121,6 +121,11 @@ const MainContent = () => {
                 tag: tag,
             });
             console.log('Document written with ID: ', docRef.id);
+            // Fetch the new lesson data and update the 'lessons' state
+        const docSnapshot = await docRef.get();
+        const newLesson = { id: docSnapshot.id, ...docSnapshot.data() };
+        setLessons((prevLessons) => [...prevLessons, newLesson]);
+
         } catch (e) {
             console.error('Error adding document: ', e);
         }
@@ -274,9 +279,9 @@ const MainContent = () => {
 )}
                 </div>
                 <p>
-                  Level:
+                  Level: 
                   {editingTag ? (
-                    <input value={tempTag} onChange={handleTagChange} onBlur={saveTag} />
+                    <input value={tempTag} onChange={handleTagChange} onBlur={saveTag} placeholder='A1, A2, B1, B2, or C1' />
                   ) : (
                     <>
                       {selectedLesson.tag}
@@ -340,14 +345,23 @@ const MainContent = () => {
                 <FontAwesomeIcon icon={faSpinner} spin size="2xl" />
                 </div>
                 ) : null}
-                    <label class="formLevel" htmlFor="tag">Level</label>
-                    <input
-                        type="text"
-                        id="tag"
-                        value={tag}
-                        onChange={(e) => setTag(e.target.value)}
-                        required
-                    /><br></br>
+<label className="formLevel" htmlFor="tag">
+  Level
+</label>
+<select
+  id="tag"
+  value={tag}
+  onChange={(e) => setTag(e.target.value)}
+  required
+>
+  <option value="">Select a level</option>
+  <option value="A1">A1</option>
+  <option value="A2">A2</option>
+  <option value="B1">B1</option>
+  <option value="B2">B2</option>
+  <option value="C1">C1</option>
+</select>
+<br></br>
                     <button
   type="submit"
   style={isFormValid() ? enabledButtonStyle : disabledButtonStyle}
