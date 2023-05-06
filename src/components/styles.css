@@ -12,10 +12,11 @@ h2{
   font-weight: 700;
   
 }
-ul{padding-left:0px!important;}
-li{list-style: none;}
 
 /* styles for the menu section */
+#root > div > div > div > nav.menu > div > ul > li{list-style: none;}
+#root > div > div > div > nav.menu > div > ul {padding-left:0px!important;}
+
 .menu {
   display: flex;
   flex-direction: column;
