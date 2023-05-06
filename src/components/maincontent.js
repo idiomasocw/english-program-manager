@@ -118,7 +118,7 @@ const MainContent = () => {
             const docRef = await addDoc(collection(db, 'lesson'), {
                 title: title,
                 description: description,
-                tag: tag,
+                tag:tag,
             });
             console.log('Document written with ID: ', docRef.id);
             // Fetch the new lesson data and update the 'lessons' state
@@ -337,7 +337,7 @@ const MainContent = () => {
                         }
                     }}
                 >
-                    <label class="formTitle" htmlFor="title">Title</label>
+                    <label className="formTitle" htmlFor="title">Title</label>
                     <input
                         type="text"
                         id="title"
@@ -345,7 +345,7 @@ const MainContent = () => {
                         onChange={(e) => setTitle(e.target.value)}
                         required
                     />
-                <label class="formDescription" htmlFor="description">Description</label>
+                <label className="formDescription" htmlFor="description">Description</label>
                 <ReactQuill
                 value={description}
                 onChange={(value) => setDescription(value)}
