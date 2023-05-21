@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Menu from './menu';
 import './styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCirclePlus, faMagnifyingGlass, faToggleOff, faToggleOn, faPenToSquare,faSpinner,faRectangleXmark } from '@fortawesome/free-solid-svg-icons';
+import { faCirclePlus, faMagnifyingGlass, faToggleOff, faToggleOn, faPenToSquare,faSpinner,faRectangleXmark} from '@fortawesome/free-solid-svg-icons';
 import Modal from 'react-modal';
 // import { collection, addDoc, getDocs, query, where, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from "firebase/firestore";
