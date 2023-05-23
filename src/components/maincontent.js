@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react';
 import Menu from './menu';
 import './styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCirclePlus, faMagnifyingGlass, faToggleOff, faToggleOn, faPenToSquare,faSpinner,faRectangleXmark} from '@fortawesome/free-solid-svg-icons';
+import { faCirclePlus, faMagnifyingGlass, faToggleOff, faToggleOn, faPenToSquare,faSpinner,faRectangleXmark,faDownload} from '@fortawesome/free-solid-svg-icons';
 import Modal from 'react-modal';
 // import { collection, addDoc, getDocs, query, where, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { collection, addDoc, getDocs, deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from '../firebase-config';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Import the styles
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
 
 Modal.setAppElement('#root');
 const MainContent = () => {
@@ -35,6 +38,19 @@ const MainContent = () => {
     const isFormValid = () => {
         return title.trim() !== "" && tag.trim() !== "" && hasTextContent(description);
     };
+
+    //Begin download function
+    const downloadLessonAsPDF = async () => {
+        if (selectedLesson) {
+            const input = document.querySelector('.lesson-details'); // This should target the container of the lesson content
+            const canvas = await html2canvas(input);
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new jsPDF();
+            pdf.addImage(imgData, 'PNG', 0, 0);
+            pdf.save(`${selectedLesson.title}.pdf`);
+        }
+    };
+    //End of download function
     
     /* delettion prop */
     const deleteLesson = async (lessonId) => {
@@ -241,6 +257,13 @@ const MainContent = () => {
                 </div>
             ) : selectedLesson ? (
                 <div className="lesson-details">
+                    <div className="lessonHeadingSection">
+                    <FontAwesomeIcon 
+                    icon={faDownload} 
+                    size="lg"
+                    style={{ marginRight: "8px", cursor: "pointer", color:'#4827ec' }} 
+                    onClick={downloadLessonAsPDF}
+                    />
                 <h1>
                   {editingTitle ? (
                     <input value={tempTitle} onChange={handleTitleChange} onBlur={saveTitle} />
@@ -257,7 +280,7 @@ const MainContent = () => {
                       )}
                     </>
                   )}
-                </h1>
+                </h1></div>
                 <div className='quill-area'>
                 {editingDescription ? (
     editMode ? (
