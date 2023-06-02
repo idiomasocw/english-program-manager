@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './styles.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faTrash, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { collection, query, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase-config';
 
@@ -16,12 +16,28 @@ const Menu = ({ editMode, selectedLesson, setSelectedLesson, onDeleteLesson }) =
   const [levelC1, setLevelC1] = useState(false);
   
   /* deletion component */
-  const handleDeleteLesson = (e,lessonId) => {
+  const handleDeleteLesson = (e, lessonId) => {
     e.stopPropagation();
-      onDeleteLesson(lessonId);
+    onDeleteLesson(lessonId);
+  };
+
+  const handleLessonNavigation = (direction) => {
+    if (!selectedLesson) return;
+
+    const lessonsInLevel = lessons.filter((lesson) => lesson.tag === selectedLesson.tag);
+    const currentIndex = lessonsInLevel.findIndex((lesson) => lesson.id === selectedLesson.id);
+
+    let newIndex;
+    if (direction === 'previous') {
+      newIndex = Math.max(0, currentIndex - 1);
+    } else {
+      newIndex = Math.min(lessonsInLevel.length - 1, currentIndex + 1);
+    }
+
+    const newLesson = lessonsInLevel[newIndex];
+    setSelectedLesson(newLesson);
   };
   
-
   const toggleMenu = (e) => {
     if (e.target.closest('.level-button') || e.target.closest('.lessons')) {
       return;
@@ -58,13 +74,13 @@ const Menu = ({ editMode, selectedLesson, setSelectedLesson, onDeleteLesson }) =
         lessonsData.push({ id: doc.id, ...doc.data() });
       });
 
-          // Sort lessons based on the numerical order
-    lessonsData.sort((a, b) => {
-      const lessonNumberA = parseInt(a.title.match(/\d+/)[0], 10);
-      const lessonNumberB = parseInt(b.title.match(/\d+/)[0], 10);
-      return lessonNumberA - lessonNumberB;
-    });
-    
+      // Sort lessons based on the numerical order
+      lessonsData.sort((a, b) => {
+        const lessonNumberA = parseInt(a.title.match(/\d+/)[0], 10);
+        const lessonNumberB = parseInt(b.title.match(/\d+/)[0], 10);
+        return lessonNumberA - lessonNumberB;
+      });
+
       setLessons(lessonsData);
     });
 
@@ -82,18 +98,34 @@ const Menu = ({ editMode, selectedLesson, setSelectedLesson, onDeleteLesson }) =
           style={{ color: '#0e124d' }}
         />
       </div>
+
+      <div className="lesson-navigation">
+        <FontAwesomeIcon
+          icon={faChevronLeft}
+          size="lg"
+          style={{ color: selectedLesson && selectedLesson.title.match(/\d+/)[0] !== '1' ? '#0e124d' : '#cccccc' }}
+          onClick={() => handleLessonNavigation('previous')}
+        />
+        <FontAwesomeIcon
+          icon={faChevronRight}
+          size="lg"
+          style={{ color: selectedLesson && selectedLesson.title.match(/\d+/)[0] !== '72' ? '#0e124d' : '#cccccc' }} // Assuming '5' as the last lesson. Replace with your actual last lesson number
+          onClick={() => handleLessonNavigation('next')}
+        />
+      </div>
+
       {['A1', 'A2', 'B1', 'B2', 'C1'].map((level, idx) => (
         <div className="level" key={idx}>
           <button className="level-button" onClick={() => toggleLevel(level)}>
             {level}
           </button>
           <ul className={`lessons ${getLevelState(level) ? '' : 'hidden'}`}>
-          {lessons
+            {lessons
               .filter((lesson) => lesson.tag === level)
               .map((lesson, lessonIdx) => (
                 <li key={lessonIdx} 
-                className="lesson"
-                onClick={() => setSelectedLesson(lesson)}
+                  className="lesson"
+                  onClick={() => setSelectedLesson(lesson)}
                 >
                   {lesson.title}
                   {editMode && (
@@ -102,7 +134,7 @@ const Menu = ({ editMode, selectedLesson, setSelectedLesson, onDeleteLesson }) =
                       icon={faTrash}
                       size="xs"
                       style={{ color: '#5075b4' }}
-                      onClick={(e) => handleDeleteLesson(e,lesson.id)}
+                      onClick={(e) => handleDeleteLesson(e, lesson.id)}
                     />
                   )}
                 </li>
@@ -113,5 +145,4 @@ const Menu = ({ editMode, selectedLesson, setSelectedLesson, onDeleteLesson }) =
     </nav>
   );
 };
-
 export default Menu;
