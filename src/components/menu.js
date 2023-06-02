@@ -46,6 +46,13 @@ const Menu = ({ editMode, selectedLesson, setSelectedLesson, onDeleteLesson }) =
   const toggleLevel = (level) => {
     const firstLesson = lessons.find(lesson => lesson.tag === level);
     if (firstLesson) setSelectedLesson(firstLesson);
+    if (!collapsed) {
+      if (level === 'A1') setLevelA1(!levelA1);
+      else if (level === 'A2') setLevelA2(!levelA2);
+      else if (level === 'B1') setLevelB1(!levelB1);
+      else if (level === 'B2') setLevelB2(!levelB2);
+      else if (level === 'C1') setLevelC1(!levelC1);
+    };
   };
 
   const getLevelState = (level) => {
