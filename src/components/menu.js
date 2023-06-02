@@ -101,12 +101,14 @@ const Menu = ({ editMode, selectedLesson, setSelectedLesson, onDeleteLesson }) =
 
       <div className="lesson-navigation">
         <FontAwesomeIcon
+          className="navigateLeft"
           icon={faChevronLeft}
           size="lg"
           style={{ color: selectedLesson && selectedLesson.title.match(/\d+/)[0] !== '1' ? '#0e124d' : '#cccccc' }}
           onClick={() => handleLessonNavigation('previous')}
         />
         <FontAwesomeIcon
+          className="navigateRight"
           icon={faChevronRight}
           size="lg"
           style={{ color: selectedLesson && selectedLesson.title.match(/\d+/)[0] !== '72' ? '#0e124d' : '#cccccc' }} // Assuming '5' as the last lesson. Replace with your actual last lesson number

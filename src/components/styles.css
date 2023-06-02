@@ -63,6 +63,13 @@ h2{
   transform: scale(1.1);
 }
 
+.navigateRight:hover{
+  transform: scale(1.1);
+}
+.navigateLeft:hover{
+  transform: scale(1.1);
+}
+
 .level {
   position: relative;
   text-align: center;
