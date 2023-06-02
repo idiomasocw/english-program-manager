@@ -39,23 +39,13 @@ const Menu = ({ editMode, selectedLesson, setSelectedLesson, onDeleteLesson }) =
   };
   
   const toggleMenu = (e) => {
-    if (e.target.closest('.level-button') || e.target.closest('.lessons')) {
-      return;
-    }
     setCollapsed(!collapsed);
   };
   
 
   const toggleLevel = (level) => {
-    if (collapsed) {
-      setCollapsed(false);
-    }
-
-    if (level === 'A1') setLevelA1(!levelA1);
-    else if (level === 'A2') setLevelA2(!levelA2);
-    else if (level === 'B1') setLevelB1(!levelB1);
-    else if (level === 'B2') setLevelB2(!levelB2);
-    else if (level === 'C1') setLevelC1(!levelC1);
+    const firstLesson = lessons.find(lesson => lesson.tag === level);
+    if (firstLesson) setSelectedLesson(firstLesson);
   };
 
   const getLevelState = (level) => {
